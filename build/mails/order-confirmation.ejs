@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #007BFF;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #28A745;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #6C757D;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Order Confirmation 🎉</h1>
+    
+    <p>Dear <%= order.userName %>,</p>
+
+    <p>Congratulations! You've successfully enrolled in the course <strong><%= order.courseName %></strong>.</p>
+
+    <p>Here are the details of your order:</p>
+    <ul>
+        <li>📘 Course: <%= order.courseName %></li>
+        <li>💰 Cost: <%= order.cost %></li>
+        <li>📅 Date: <%= order.date %></li>
+    </ul>
+
+    <p>We're excited to have you on board! 🚀 If you have any questions, feel free to reach out.</p>
+
+    <footer>
+        <p>Best regards,</p>
+        <p>E-learning</p>
+    </footer>
+</body>
+</html>

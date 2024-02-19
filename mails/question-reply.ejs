@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification: Response to Your Question</title>
+    <style>
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #9F70FD;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            color:white;
+        }
+
+        h2 {
+            color: rgb(0, 0, 87);
+            font-size: 25px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        footer {
+            margin-top: 50px;
+            color: rgb(0, 0, 87);
+            font-size: 15px;
+        }
+        
+        strong {
+            color: rgb(0, 0, 87);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>You've Got a Response!</h2>
+        <p>Hello <%= name %>,</p>
+        <p>We are excited to let you know that there has been a response to your question <strong>"<%= question %>"</strong></p>
+        <p>Course name: <strong><%= courseName %></strong></p>
+        <p>Login to your course to view the response and continue the discussion</p>
+        <p>If you have any further questions or need assistance, feel free to reach out. Happy learning!</p>
+        <footer>Best regards, E-learning</footer>
+    </div>
+</body>
+
+</html>
