@@ -173,7 +173,7 @@ exports.getUserInfo = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, 
 exports.socialAuth = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, next) => {
     try {
         const { email, name, avatar } = req.body;
-        const nextAuthToken = req.cookies["next-auth.session-token"];
+        const nextAuthToken = req.cookies["__Secure-next-auth.session-token"] || req.cookies["next-auth.session-token"];
         if (!nextAuthToken) {
             return next(new ErrorHandler_1.default("Token is reqiured for social authentication", 400));
         }
