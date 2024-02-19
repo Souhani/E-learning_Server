@@ -21,7 +21,7 @@ exports.app = (0, express_1.default)();
 //is a mechanism that allows restricted resources on a web page
 //to be accessed from another domain outside the domain from which
 //the first resource was served.
-exports.app.use((0, cors_1.default)({ origin: ['http://localhost:3000'],
+exports.app.use((0, cors_1.default)({ origin: ['https://e-learning-client-nu.vercel.app'],
     credentials: true }));
 // body parser wih the limit for the JSON payload size. the maximum size 50 megabytes.
 exports.app.use(express_1.default.json({ limit: "50mb" }));
