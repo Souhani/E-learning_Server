@@ -229,7 +229,7 @@ export const socialAuth = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, name, avatar } = req.body as ISocialAuthBody;
-      const nextAuthToken = req.cookies["next-auth.session-token"];
+      const nextAuthToken = req.cookies["__Secure-next-auth.session-token"] || req.cookies["next-auth.session-token"];
       if(!nextAuthToken) {
         return next(new ErrorHandler("Token is reqiured for social authentication",400));
       }
