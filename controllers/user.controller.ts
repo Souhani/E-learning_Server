@@ -229,24 +229,28 @@ export const socialAuth = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, name, avatar } = req.body as ISocialAuthBody;
-      console.log("req.cookies",{...req.cookies})
-      console.log("__Secure-next-auth.session-token",req.cookies["__Secure-next-auth.session-token"])
-      const nextAuthToken = req.cookies["__Secure-next-auth.session-token"] || req.cookies["next-auth.session-token"];
-      console.log("nextAuthToken",nextAuthToken)
-      if(!nextAuthToken) {
-        return next(new ErrorHandler("Token is reqiured for social authentication",400));
-      }
-      const isNextAuthSessionExist = await redis.get(`user:session:${nextAuthToken}`);
-      if(!isNextAuthSessionExist) {
-        return next(new ErrorHandler("Session Expired",400));
-      }
-      // check if the nextAuthSession is for the same requested user email
-      const userSession = await redis.get(`user:${JSON.parse(isNextAuthSessionExist).userId}`);
-      if(!userSession) {
-        return next(new ErrorHandler("User session not found",400));
-      }
-      if(JSON.parse(userSession).email !== email) {
-        return next(new ErrorHandler("Something went wrong!",400));
+      // console.log("req.cookies",{...req.cookies})
+      // console.log("__Secure-next-auth.session-token",req.cookies["__Secure-next-auth.session-token"])
+      // const nextAuthToken = req.cookies["__Secure-next-auth.session-token"] || req.cookies["next-auth.session-token"];
+      // console.log("nextAuthToken",nextAuthToken)
+      // if(!nextAuthToken) {
+      //   return next(new ErrorHandler("Token is reqiured for social authentication",400));
+      // }
+      // const isNextAuthSessionExist = await redis.get(`user:session:${nextAuthToken}`);
+      // if(!isNextAuthSessionExist) {
+      //   return next(new ErrorHandler("Session Expired",400));
+      // }
+      // // check if the nextAuthSession is for the same requested user email
+      // const userSession = await redis.get(`user:${JSON.parse(isNextAuthSessionExist).userId}`);
+      // if(!userSession) {
+      //   return next(new ErrorHandler("User session not found",400));
+      // }
+      // if(JSON.parse(userSession).email !== email) {
+      //   return next(new ErrorHandler("Something went wrong!",400));
+      // }
+      const isNextAuthSessionExist = await redis.get(`user:email:${email}`);
+       if(!isNextAuthSessionExist) {
+         return next(new ErrorHandler("Session Expired",400));
       }
       const user = await userModel.findOne({ email });
       if (!user) {
