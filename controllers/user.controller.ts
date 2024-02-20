@@ -229,7 +229,7 @@ export const socialAuth = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, name, avatar } = req.body as ISocialAuthBody;
-      console.log("req.cookies",req.cookies)
+      console.log("req.cookies",{...req.cookies})
       console.log("__Secure-next-auth.session-token",req.cookies["__Secure-next-auth.session-token"])
       const nextAuthToken = req.cookies["__Secure-next-auth.session-token"] || req.cookies["next-auth.session-token"];
       console.log("nextAuthToken",nextAuthToken)
