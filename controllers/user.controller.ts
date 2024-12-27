@@ -1,7 +1,7 @@
 require("dotenv").config();
 import { NextFunction, Request, Response } from "express";
 import { catchAsyncErrors } from "../middleware/catchAsyncErrors";
-import userModel, { IUser } from "../models/user.model";
+import userModel, { IQuizResults, IUser } from "../models/user.model";
 import ErrorHandler from "../utils/ErrorHandler";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import sendMail from "../utils/sendMail";
@@ -443,3 +443,29 @@ export const deleteUser = catchAsyncErrors(async(req:Request, res:Response, next
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+
+export const updateUserQuizzes = catchAsyncErrors(
+  async (req: Request, res: Response, next: NextFunction) => {
+      const  quizResults = req.body as IQuizResults;
+      if(!mongoose.Types.ObjectId.isValid(quizResults?.quiz_id)) {
+        return next(new ErrorHandler('Quiz id is not valide', 404));
+      };
+      const userId = req.user?._id;
+      const user = await userModel.findById(userId);
+
+      //update user quizzes results
+        if(user) {
+          user.quizzesResults = [...user.quizzesResults, quizResults];
+        }
+      // save changes to the database
+      await user?.save();
+      // save chnages to the cache
+      await redis.set(userId, JSON.stringify(user), "EX", 604800);
+      // responde with the new user info
+      res.status(201).json({
+        success: true,
+        user,
+      });
+  }
+);
