@@ -32,10 +32,10 @@ const ErrorMiddleware =  (err:any, req: Request, res:Response, next:NextFunction
     err = new ErrorHandler(message, statusCode);
    }
 
-   res.status(err.statusCode).json({
+   return res.status(err.statusCode).json({
     success: false,
     message: err.message,
-   })
+   });
 };
 
 export default ErrorMiddleware;

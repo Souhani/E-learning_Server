@@ -9,6 +9,7 @@ import orderRouter from "./routes/order.route";
 import notificationRouter from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
+import quizRouter from "./routes/quiz.route";
 
 // create our express server
 export const app = express();
@@ -17,7 +18,7 @@ export const app = express();
 //is a mechanism that allows restricted resources on a web page
 //to be accessed from another domain outside the domain from which
 //the first resource was served.
-app.use(cors({ origin: ['https://e-learning-client-nu.vercel.app'],
+app.use(cors({ origin: ['http://localhost:3000'],
                credentials: true }));
 
 // body parser wih the limit for the JSON payload size. the maximum size 50 megabytes.
@@ -27,7 +28,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 // routes
-app.use('/api/v1', userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutRouter);
+app.use('/api/v1', userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutRouter, quizRouter);
 
 //testing our API
 app.get("/testing", (req: Request, res: Response, next: NextFunction) => {

@@ -2,10 +2,21 @@ require("dotenv").config();
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt, { Secret } from "jsonwebtoken";
-import courseModel from "./course.model";
 
 // the pattern that emails should follow
 const emailRegexPatter: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+//Result Items for a quiz
+export interface IQuizResultItems extends Document {
+  question_id: mongoose.Types.ObjectId;
+  options_ids: mongoose.Types.ObjectId[];
+}
+
+// quiz result interface
+export interface IQuizResults extends Document {
+  quiz_id: mongoose.Types.ObjectId;
+  results: IQuizResultItems[]; 
+};
 
 // interface for the user info
 export interface IUser extends Document {
@@ -19,6 +30,7 @@ export interface IUser extends Document {
   role: string;
   isVerifid: boolean;
   courses: Array<object>;
+  quizzesResults: IQuizResults[];
   comparePassword: (password: string) => Promise<boolean>;
   signAccessToken: (sessionId:string) => string;
   signRefreshToken: (sessionId:string) => string;
@@ -67,6 +79,22 @@ const userSchema: Schema<IUser> = new Schema(
         }
       }
     ],
+    quizzesResults: [
+      {
+        quiz_id: {
+          type: mongoose.Types.ObjectId,
+          ref: "Quiz"
+      },
+        results: [
+          {
+            question_id:  {
+              type: mongoose.Types.ObjectId,
+          },
+            options_ids:[{type: mongoose.Types.ObjectId}]
+          }
+        ],
+      }
+    ],
   },
   { timestamps: true }
 );
@@ -100,12 +128,14 @@ userSchema.methods.signRefreshToken = function (sessionId:string): string {
     }
   );
 };
+
 //compare password with the hash
 userSchema.methods.comparePassword = async function (
   enteredPassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
 // user model
 const userModel: Model<IUser> = mongoose.model("User", userSchema);
 
