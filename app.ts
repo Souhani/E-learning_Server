@@ -18,7 +18,7 @@ export const app = express();
 //is a mechanism that allows restricted resources on a web page
 //to be accessed from another domain outside the domain from which
 //the first resource was served.
-app.use(cors({ origin: ['http://localhost:3000'],
+app.use(cors({ origin: ['https://e-learning-client-quiz.vercel.app'],
                credentials: true }));
 
 // body parser wih the limit for the JSON payload size. the maximum size 50 megabytes.
