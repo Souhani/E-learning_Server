@@ -19,8 +19,8 @@ export const app = express();
 //to be accessed from another domain outside the domain from which
 //the first resource was served.
 app.use(cors({
-  origin:['http://localhost:3001'],
-  // origin: '*', // Allows all origins for the demo
+  // origin:['http://localhost:3001'],
+  origin: '*', // Allows all origins for the demo
   credentials: true, // Include credentials if needed
 }));
 // body parser wih the limit for the JSON payload size. the maximum size 50 megabytes.
