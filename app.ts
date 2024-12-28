@@ -29,7 +29,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 
 // routes
-app.use('/api/v1', userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutRouter, quizRouter);
+app.use('/api/v1', quizRouter, userRouter, courseRouter, orderRouter, notificationRouter, analyticsRouter, layoutRouter);
 
 //testing our API
 app.get("/testing", (req: Request, res: Response, next: NextFunction) => {
