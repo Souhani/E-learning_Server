@@ -101,18 +101,18 @@ export const authorizeRoles = (...roles: string[]) => {
 
 // middleware to check if the user is eligible to the requested course (if the course is purchased by the user);
 export const isUserEligibleToCourse = (req:Request, res:Response, next:NextFunction) => {
-  if(req?.user?.role === "Admin") {
-    return next();
-  }
-  let courseId = req.params.id;
-  if(!courseId) {
-    courseId = req.body.courseId;
-  };
-  const userCourseList = req.user?.courses;
-  //check if the requested course is exist on the user purchased courses list.
-  const isCourseExists = userCourseList?.some((course:any) => courseId === course._id.toString());
-  if(!isCourseExists) {
-     return next(new ErrorHandler("You are not eligible to access this course", 400));
-  };
+  // if(req?.user?.role === "Admin") {
+  //   return next();
+  // }
+  // let courseId = req.params.id;
+  // if(!courseId) {
+  //   courseId = req.body.courseId;
+  // };
+  // const userCourseList = req.user?.courses;
+  // //check if the requested course is exist on the user purchased courses list.
+  // const isCourseExists = userCourseList?.some((course:any) => courseId === course._id.toString());
+  // if(!isCourseExists) {
+  //    return next(new ErrorHandler("You are not eligible to access this course", 400));
+  // };
   next();
 }

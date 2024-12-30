@@ -20,6 +20,7 @@ export const app = express();
 //the first resource was served.
 app.use(cors({
   origin:['https://e-learning-client-nu.vercel.app'],
+  // origin:['http://localhost:3000'],
   // origin: '*', // Allows all origins for the demo
   credentials: true, // Include credentials if needed
 }));
