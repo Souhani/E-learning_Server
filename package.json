@@ -12,7 +12,7 @@
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "start": "node build/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false",
-    "build": "tsc && xcopy mails build\\mails /E /I"
+    "build": "tsc && shx cp -r mails build/"
   },
   "author": "abdelkarim souhani",
   "license": "ISC",
@@ -48,6 +48,7 @@
   "devDependencies": {
     "@types/ejs": "^3.1.5",
     "@types/nodemailer": "^6.4.14",
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "shx": "^0.3.4"
   }
 }
